@@ -17,6 +17,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*", "demo/**/*"],
+  "include": ["src/**/*", "demo/**/*", "jestSetup.ts"],
   "exclude": ["node_modules", "lib"]
 }
