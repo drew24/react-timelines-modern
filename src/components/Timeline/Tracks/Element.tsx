@@ -1,34 +1,49 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-import { ComponentPropsWithoutRef, FunctionComponent } from 'react'
+import { ComponentPropsWithoutRef, FunctionComponent } from "react";
 import createTime from "../../../utils/time";
 
-import BasicElement from '../../Elements/Basic'
+import BasicElement from "../../Elements/Basic";
 
 interface Props {
-  time: ReturnType<typeof createTime>;
-  style: ComponentPropsWithoutRef<typeof BasicElement>['style'];
-  title: ComponentPropsWithoutRef<typeof BasicElement>['title'];
-  start: ComponentPropsWithoutRef<typeof BasicElement>['start'];
-  end: ComponentPropsWithoutRef<typeof BasicElement>['end'];
-  classes: ComponentPropsWithoutRef<typeof BasicElement>['classes'];
-  dataSet: ComponentPropsWithoutRef<typeof BasicElement>['dataSet'];
-  tooltip: ComponentPropsWithoutRef<typeof BasicElement>['tooltip'];
+  time?: ReturnType<typeof createTime>;
+  style?: ComponentPropsWithoutRef<typeof BasicElement>["style"];
+  title?: ComponentPropsWithoutRef<typeof BasicElement>["title"];
+  start: ComponentPropsWithoutRef<typeof BasicElement>["start"];
+  end: ComponentPropsWithoutRef<typeof BasicElement>["end"];
+  classes?: ComponentPropsWithoutRef<typeof BasicElement>["classes"];
+  dataSet?: ComponentPropsWithoutRef<typeof BasicElement>["dataSet"];
+  tooltip?: ComponentPropsWithoutRef<typeof BasicElement>["tooltip"];
   clickElement?: (props: Props) => void;
 }
 
-const Element: FunctionComponent<Props> = props => {
-  const { time, style, title, start, end, classes, dataSet, tooltip, clickElement } = props
+const Element: FunctionComponent<Props> = (props) => {
+  const {
+    time,
+    style,
+    title = "",
+    start,
+    end,
+    classes,
+    dataSet = {},
+    tooltip,
+    clickElement,
+  } = props;
 
   const handleClick = () => {
-    clickElement && clickElement(props)
-  }
+    if (clickElement) {
+      clickElement(props);
+    }
+  };
+  const styleLeftAndWidth = time ? time.toStyleLeftAndWidth(start, end) : {};
   const elementStyle = {
-    ...time.toStyleLeftAndWidth(start, end),
-    ...(clickElement ? { cursor: 'pointer' } : {}),
-  }
-  debugger;
+    ...styleLeftAndWidth,
+    ...(clickElement ? { cursor: "pointer" } : {}),
+  };
   return (
-    <div className="rt-track__element" style={elementStyle} onClick={clickElement && handleClick}>
+    <div
+      className="rt-track__element"
+      style={elementStyle}
+      onClick={clickElement && handleClick}
+    >
       <BasicElement
         title={title}
         start={start}
@@ -39,7 +54,7 @@ const Element: FunctionComponent<Props> = props => {
         tooltip={tooltip}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Element
+export default Element;

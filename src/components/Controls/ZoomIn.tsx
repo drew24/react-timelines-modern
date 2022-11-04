@@ -1,9 +1,9 @@
-import { FunctionComponent, MouseEventHandler } from 'react'
+import { FunctionComponent, MouseEventHandler } from "react";
 
 interface Props {
   zoom: number;
   zoomMax: number;
-  zoomIn: MouseEventHandler<HTMLButtonElement>
+  zoomIn: MouseEventHandler<HTMLButtonElement>;
 }
 
 const ZoomIn: FunctionComponent<Props> = (props) => {
@@ -21,7 +21,12 @@ const ZoomIn: FunctionComponent<Props> = (props) => {
           <path d="M12.5 22h24v6h-24z" />
           <path d="M27.5 13v24h-6V13z" />
           <path d="M25 48.5C12.02 48.5 1.5 37.98 1.5 25S12.02 1.5 25 1.5 48.5 12.02 48.5 25 37.98 48.5 25 48.5zm-.12-6.24c9.6 0 17.38-7.78 17.38-17.38 0-9.6-7.78-17.38-17.38-17.38-9.6 0-17.38 7.78-17.38 17.38 0 9.6 7.78 17.38 17.38 17.38z" />
-          <rect width="24" height="8" rx="4" transform="rotate(45 -22.312 67.766)" />
+          <rect
+            width="24"
+            height="8"
+            rx="4"
+            transform="rotate(45 -22.312 67.766)"
+          />
         </g>
       </svg>
     </button>

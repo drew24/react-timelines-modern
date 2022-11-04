@@ -1,18 +1,18 @@
-import { CSSProperties, FunctionComponent } from 'react'
-import { getDayMonth } from '../../utils/formatDate'
-import createClasses from '../../utils/classes'
+import { CSSProperties, FunctionComponent } from "react";
+import { getDayMonth } from "../../utils/formatDate";
+import createClasses from "../../utils/classes";
 
 interface BuildDataAttributesSettings {
-
+  [key: string]: string;
 }
 
 const buildDataAttributes = (attributes: BuildDataAttributesSettings = {}) => {
-  const value = {}
-  Object.keys(attributes).forEach(name => {
-    value[`data-${name}`] = attributes[name]
-  })
-  return value
-}
+  const value = {};
+  Object.keys(attributes).forEach((name) => {
+    value[`data-${name}`] = attributes[name];
+  });
+  return value;
+};
 
 interface Props {
   classes?: string[];
@@ -25,24 +25,24 @@ interface Props {
 }
 
 const Basic: FunctionComponent<Props> = (props) => {
-  const {
-    classes = [],
-    dataSet,
-    end,
-    start,
-    style,
-    title,
-    tooltip,
-  } = props;
+  const { classes = [], dataSet, end, start, style, title, tooltip } = props;
   return (
-    <div className={createClasses('rt-element', classes)} style={style} {...buildDataAttributes(dataSet)}>
+    <div
+      className={createClasses("rt-element", classes)}
+      style={style}
+      {...buildDataAttributes(dataSet)}
+    >
       <div className="rt-element__content" aria-hidden="true">
         <span className="rt-element__title">{title}</span>
       </div>
       <div className="rt-element__tooltip">
         {tooltip ? (
           // eslint-disable-next-line react/no-danger
-          <div dangerouslySetInnerHTML={{ __html: tooltip.split('\n').join('<br>') }} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: tooltip.split("\n").join("<br>"),
+            }}
+          />
         ) : (
           <div>
             <div>{title}</div>
@@ -58,6 +58,5 @@ const Basic: FunctionComponent<Props> = (props) => {
     </div>
   );
 };
-
 
 export default Basic;

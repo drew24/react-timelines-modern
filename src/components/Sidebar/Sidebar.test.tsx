@@ -1,19 +1,23 @@
-import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow } from "enzyme";
 
-import Sidebar from '.'
-import Header from './Header'
-import Body from '../Body'
+import Sidebar from ".";
+import Header from "./Header";
+import Body from "./TrackKeys/Body";
 
-describe('<Sidebar />', () => {
-  it('renders <Header /> and <Body />', () => {
+describe("<Sidebar />", () => {
+  it("renders <Header /> and <Body />", () => {
     const props = {
       timebar: [],
-      tracks: [{}],
+      tracks: [
+        {
+          id: "1",
+          title: "Track 1",
+        },
+      ],
       toggleTrackOpen: jest.fn(),
-    }
-    const wrapper = shallow(<Sidebar {...props} />)
-    expect(wrapper.find(Header).exists()).toBe(true)
-    expect(wrapper.find(Body).exists()).toBe(true)
-  })
-})
+    };
+    const wrapper = shallow(<Sidebar {...props} />);
+    expect(wrapper.find(Header).exists()).toBe(true);
+    expect(wrapper.find(Body).exists()).toBe(true);
+  });
+});

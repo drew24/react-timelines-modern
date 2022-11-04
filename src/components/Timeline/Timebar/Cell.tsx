@@ -10,7 +10,10 @@ interface Props {
 export default function Cell(props: Props): JSX.Element {
   const { time, title, start, end } = props;
   return (
-    <div className="rt-timebar__cell" style={time.toStyleLeftAndWidth(start, end)}>
+    <div
+      className="rt-timebar__cell"
+      style={time.toStyleLeftAndWidth(start, end)}
+    >
       {title}
     </div>
   );

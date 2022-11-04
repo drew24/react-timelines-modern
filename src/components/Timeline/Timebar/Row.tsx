@@ -1,14 +1,14 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef } from "react";
 
-import Cell from './Cell'
+import Cell from "./Cell";
 import { FunctionComponent } from "enzyme";
 
-interface Cell extends ComponentPropsWithoutRef<typeof Cell> {
+interface CellPropsWithId extends ComponentPropsWithoutRef<typeof Cell> {
   id: string;
 }
 interface Props {
-  time: ComponentPropsWithoutRef<typeof Cell>['time'];
-  cells: Cell[];
+  time: ComponentPropsWithoutRef<typeof Cell>["time"];
+  cells: CellPropsWithId[];
   style: React.CSSProperties;
 }
 
@@ -16,11 +16,12 @@ const Row: FunctionComponent<Props> = (props) => {
   const { time, cells, style } = props;
   return (
     <div className="rt-timebar__row" style={style}>
-      {cells.map(cell => {
+      {cells.map((cell) => {
         const { end, id, start, title } = cell;
         const selectedTime = cell.time || time;
         return (
-          <Cell key={id}
+          <Cell
+            key={id}
             end={end}
             start={start}
             time={selectedTime}
@@ -32,4 +33,4 @@ const Row: FunctionComponent<Props> = (props) => {
   );
 };
 
-export default Row
+export default Row;

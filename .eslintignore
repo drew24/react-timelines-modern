@@ -3,3 +3,6 @@ demo/node_modules
 build
 node_modules
 coverage
+jestSetup.js
+jest.config.ts
+.eslintrc.js

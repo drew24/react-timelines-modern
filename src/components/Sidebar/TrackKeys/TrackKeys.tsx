@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from "react";
-import TrackKey from './TrackKey'
+import TrackKey from "./TrackKey";
 
-type Track = ComponentPropsWithoutRef<typeof TrackKey>['track'];
+type Track = ComponentPropsWithoutRef<typeof TrackKey>["track"];
 
 interface Props {
   tracks: Track[];
@@ -13,9 +13,14 @@ export default function TrackKeys(props: Props): JSX.Element {
   const { tracks, toggleOpen, clickTrackButton } = props;
   return (
     <ul className="rt-track-keys">
-    {tracks.map(track => (
-      <TrackKey key={track.id} track={track} toggleOpen={toggleOpen} clickTrackButton={clickTrackButton} />
-    ))}
-  </ul>
+      {tracks.map((track) => (
+        <TrackKey
+          key={track.id}
+          track={track}
+          toggleOpen={toggleOpen}
+          clickTrackButton={clickTrackButton}
+        />
+      ))}
+    </ul>
   );
 }

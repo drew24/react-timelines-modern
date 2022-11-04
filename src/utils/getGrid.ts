@@ -8,5 +8,5 @@ type Timebar = {
 }[];
 
 export default function getGrid(timebar: Timebar) {
-  return (timebar.find(row => !!row.useAsGrid) || {}).cells;
+  return (timebar.find((row) => !!row.useAsGrid) || {}).cells;
 }

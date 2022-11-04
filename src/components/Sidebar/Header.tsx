@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
-import setDefaultProperties, { DefaultProperties } from "../../utils/setDefaultProperties";
+import setDefaultProperties, {
+  DefaultProperties,
+} from "../../utils/setDefaultProperties";
 
 interface Timebar {
   id: string;
@@ -29,24 +31,20 @@ const DEFAULT_PROPS: DefaultProperties<Props> = {
 
 const Header: FunctionComponent<Props> = (props) => {
   const { sticky, timebar } = setDefaultProperties(props, DEFAULT_PROPS);
-  const {
-    isSticky,
-    headerHeight,
-    sidebarWidth,
-  } = sticky;
+  const { isSticky, headerHeight, sidebarWidth } = sticky;
   return (
     <div style={isSticky ? { paddingTop: headerHeight } : {}}>
-    <div
-      className={`rt-sidebar__header ${isSticky ? 'rt-is-sticky' : ''}`}
-      style={isSticky ? { width: sidebarWidth } : {}}
-    >
-      {timebar.map(({ id, title }) => (
-        <div key={id} className="rt-timebar-key">
-          {title}
-        </div>
-      ))}
+      <div
+        className={`rt-sidebar__header ${isSticky ? "rt-is-sticky" : ""}`}
+        style={isSticky ? { width: sidebarWidth } : {}}
+      >
+        {timebar.map(({ id, title }) => (
+          <div key={id} className="rt-timebar-key">
+            {title}
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
   );
 };
 

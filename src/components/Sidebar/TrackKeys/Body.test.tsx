@@ -1,16 +1,20 @@
-import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow } from "enzyme";
 
-import Body from '../Body'
-import TrackKeys from '.'
+import Body from "./Body";
+import TrackKeys from ".";
 
-describe('<Body />', () => {
-  it('renders <TrackKeys />', () => {
+describe("<Body />", () => {
+  it("renders <TrackKeys />", () => {
     const props = {
-      tracks: [{}],
+      tracks: [
+        {
+          id: "1",
+          title: "Track 1",
+        },
+      ],
       toggleTrackOpen: jest.fn(),
-    }
-    const wrapper = shallow(<Body {...props} />)
-    expect(wrapper.find(TrackKeys).exists()).toBe(true)
-  })
-})
+    };
+    const wrapper = shallow(<Body {...props} />);
+    expect(wrapper.find(TrackKeys).exists()).toBe(true);
+  });
+});

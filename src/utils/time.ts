@@ -1,4 +1,4 @@
-const MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000
+const MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
 interface CreateSettings {
   start: Date;
@@ -8,12 +8,11 @@ interface CreateSettings {
   minWidth?: number;
 }
 
-
 function getTimelineWidth(settings: CreateSettings) {
   const { start, end, zoom, viewportWidth = 0, minWidth = 0 } = settings;
   const duration = end.valueOf() - start.valueOf();
-  const days = duration / MILLIS_IN_A_DAY
-  const daysZoomWidth = days * zoom
+  const days = duration / MILLIS_IN_A_DAY;
+  const daysZoomWidth = days * zoom;
 
   if (daysZoomWidth > viewportWidth) {
     return daysZoomWidth >= minWidth ? daysZoomWidth : minWidth;
@@ -26,29 +25,29 @@ const create = (settings: CreateSettings) => {
   const { start, end, zoom } = settings;
   const duration = end.valueOf() - start.valueOf();
 
-
   const timelineWidth = getTimelineWidth(settings);
 
-  const timelineWidthStyle = `${timelineWidth}px`
+  const timelineWidthStyle = `${timelineWidth}px`;
 
   const toX = (from: Date) => {
-    const value = (from.valueOf() - start.valueOf()) / duration
-    return Math.round(value * timelineWidth)
-  }
+    const value = (from.valueOf() - start.valueOf()) / duration;
+    return Math.round(value * timelineWidth);
+  };
 
   const toStyleLeft = (from: Date) => ({
     left: `${toX(from)}px`,
-  })
+  });
 
   const toStyleLeftAndWidth = (from: Date, to: Date) => {
-    const left = toX(from)
+    const left = toX(from);
     return {
       left: `${left}px`,
       width: `${toX(to) - left}px`,
-    }
-  }
+    };
+  };
 
-  const fromX = (x: number) => new Date(start.getTime() + (x / timelineWidth) * duration)
+  const fromX = (x: number) =>
+    new Date(start.getTime() + (x / timelineWidth) * duration);
 
   return {
     timelineWidth,
@@ -60,7 +59,7 @@ const create = (settings: CreateSettings) => {
     toStyleLeft,
     toStyleLeftAndWidth,
     fromX,
-  }
-}
+  };
+};
 
-export default create
+export default create;

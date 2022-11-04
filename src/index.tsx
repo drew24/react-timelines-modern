@@ -1,17 +1,19 @@
-import { Component, ComponentPropsWithoutRef } from 'react';
+import { Component, ComponentPropsWithoutRef } from "react";
 
-import Controls from './components/Controls';
-import Layout from './components/Layout';
-import createTime from './utils/time';
+import Controls from "./components/Controls";
+import Layout from "./components/Layout";
+import createTime from "./utils/time";
 
-const UNKNOWN_WIDTH = -1
+const UNKNOWN_WIDTH = -1;
 
 interface Props {
-  clickElement?: ComponentPropsWithoutRef<typeof Layout>['clickElement'];
-  clickTrackButton?: ComponentPropsWithoutRef<typeof Layout>['clickTrackButton'];
-  enableSticky?: ComponentPropsWithoutRef<typeof Layout>['enableSticky'];
-  isOpen?: ComponentPropsWithoutRef<typeof Layout>['isOpen'];
-  now?: ComponentPropsWithoutRef<typeof Layout>['now'];
+  clickElement?: ComponentPropsWithoutRef<typeof Layout>["clickElement"];
+  clickTrackButton?: ComponentPropsWithoutRef<
+    typeof Layout
+  >["clickTrackButton"];
+  enableSticky?: ComponentPropsWithoutRef<typeof Layout>["enableSticky"];
+  isOpen?: ComponentPropsWithoutRef<typeof Layout>["isOpen"];
+  now?: ComponentPropsWithoutRef<typeof Layout>["now"];
   scale: {
     start: Date;
     end: Date;
@@ -19,13 +21,13 @@ interface Props {
     zoomMin: number;
     zoomMax: number;
   };
-  scrollToNow?: ComponentPropsWithoutRef<typeof Layout>['scrollToNow'];
-  timebar: ComponentPropsWithoutRef<typeof Layout>['timebar'];
-  toggleOpen?: ComponentPropsWithoutRef<typeof Controls>['toggleOpen'];
-  toggleTrackOpen?: ComponentPropsWithoutRef<typeof Layout>['toggleTrackOpen'];
-  tracks: ComponentPropsWithoutRef<typeof Layout>['tracks'];
-  zoomIn?: ComponentPropsWithoutRef<typeof Controls>['zoomIn'];
-  zoomOut?: ComponentPropsWithoutRef<typeof Controls>['zoomOut'];
+  scrollToNow?: ComponentPropsWithoutRef<typeof Layout>["scrollToNow"];
+  timebar: ComponentPropsWithoutRef<typeof Layout>["timebar"];
+  toggleOpen?: ComponentPropsWithoutRef<typeof Controls>["toggleOpen"];
+  toggleTrackOpen?: ComponentPropsWithoutRef<typeof Layout>["toggleTrackOpen"];
+  tracks: ComponentPropsWithoutRef<typeof Layout>["tracks"];
+  zoomIn?: ComponentPropsWithoutRef<typeof Controls>["zoomIn"];
+  zoomOut?: ComponentPropsWithoutRef<typeof Controls>["zoomOut"];
 }
 
 interface State {
@@ -36,37 +38,45 @@ interface State {
 
 class Timeline extends Component<Props, State> {
   constructor(props: Props) {
-    super(props)
-    const timelineViewportWidth = UNKNOWN_WIDTH
-    const sidebarWidth = UNKNOWN_WIDTH
+    super(props);
+    const timelineViewportWidth = UNKNOWN_WIDTH;
+    const sidebarWidth = UNKNOWN_WIDTH;
     this.state = {
-      time: createTime({ ...props.scale, viewportWidth: timelineViewportWidth }),
+      time: createTime({
+        ...props.scale,
+        viewportWidth: timelineViewportWidth,
+      }),
       timelineViewportWidth,
       sidebarWidth,
-    }
+    };
   }
 
   // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    const { scale } = this.props
-    const { timelineViewportWidth } = this.state
+    const { scale } = this.props;
+    const { timelineViewportWidth } = this.state;
 
     if (nextProps.scale !== scale) {
       const time = createTime({
         ...nextProps.scale,
         viewportWidth: timelineViewportWidth,
-      })
-      this.setState({ time })
+      });
+      this.setState({ time });
     }
   }
 
-  handleLayoutChange: ComponentPropsWithoutRef<typeof Layout>['onLayoutChange'] = (settings, cb) => {
-    const { timelineViewportWidth = UNKNOWN_WIDTH, sidebarWidth = UNKNOWN_WIDTH } = settings;
-    const { scale } = this.props
+  handleLayoutChange: ComponentPropsWithoutRef<
+    typeof Layout
+  >["onLayoutChange"] = (settings, cb) => {
+    const {
+      timelineViewportWidth = UNKNOWN_WIDTH,
+      sidebarWidth = UNKNOWN_WIDTH,
+    } = settings;
+    const { scale } = this.props;
     const time = createTime({
       ...scale,
       viewportWidth: timelineViewportWidth,
-    })
+    });
     this.setState(
       {
         time,
@@ -74,8 +84,8 @@ class Timeline extends Component<Props, State> {
         sidebarWidth,
       },
       cb
-    )
-  }
+    );
+  };
 
   render() {
     const {
@@ -90,13 +100,12 @@ class Timeline extends Component<Props, State> {
       toggleTrackOpen,
       enableSticky = false,
       scrollToNow,
-    } = this.props
+    } = this.props;
 
-    const { time, timelineViewportWidth, sidebarWidth } = this.state
+    const { time, timelineViewportWidth, sidebarWidth } = this.state;
 
-    const { clickElement, clickTrackButton } = this.props
+    const { clickElement, clickTrackButton } = this.props;
 
-    debugger;
     return (
       <div className="rt">
         <Controls
@@ -124,7 +133,7 @@ class Timeline extends Component<Props, State> {
           clickTrackButton={clickTrackButton}
         />
       </div>
-    )
+    );
   }
 }
 

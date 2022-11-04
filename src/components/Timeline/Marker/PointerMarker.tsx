@@ -1,7 +1,7 @@
 import createTime from "../../../utils/time";
 
-import { getDayMonth } from '../../../utils/formatDate';
-import Marker from './Marker';
+import { getDayMonth } from "../../../utils/formatDate";
+import Marker from "./Marker";
 
 interface Props {
   time: ReturnType<typeof createTime>;
@@ -13,12 +13,17 @@ interface Props {
 export default function PointerMarker(props: Props): JSX.Element {
   const { time, date, visible, highlighted } = props;
   return (
-    <Marker modifier="pointer" x={time.toX(date)} visible={visible} highlighted={highlighted}>
-    <div>
+    <Marker
+      modifier="pointer"
+      x={time.toX(date)}
+      visible={visible}
+      highlighted={highlighted}
+    >
       <div>
-        <strong>{getDayMonth(date)}</strong>
+        <div>
+          <strong>{getDayMonth(date)}</strong>
+        </div>
       </div>
-    </div>
-  </Marker>
+    </Marker>
   );
 }
