@@ -11,6 +11,9 @@ interface Props {
   end: ComponentPropsWithoutRef<typeof BasicElement>["end"];
   classes?: ComponentPropsWithoutRef<typeof BasicElement>["classes"];
   dataSet?: ComponentPropsWithoutRef<typeof BasicElement>["dataSet"];
+  suffixContent?: ComponentPropsWithoutRef<
+    typeof BasicElement
+  >["suffixContent"];
   tooltip?: ComponentPropsWithoutRef<typeof BasicElement>["tooltip"];
   clickElement?: (props: Props) => void;
 }
@@ -24,6 +27,7 @@ const Element: FunctionComponent<Props> = (props) => {
     end,
     classes,
     dataSet = {},
+    suffixContent,
     tooltip,
     clickElement,
   } = props;
@@ -51,6 +55,7 @@ const Element: FunctionComponent<Props> = (props) => {
         style={style}
         classes={classes}
         dataSet={dataSet}
+        suffixContent={suffixContent}
         tooltip={tooltip}
       />
     </div>
