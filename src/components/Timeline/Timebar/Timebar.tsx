@@ -1,13 +1,11 @@
-import { ComponentPropsWithoutRef, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
+import { TimebarEntry, TimeSettings } from "../../../types";
 
 import Row from "./Row";
 
-interface RowPropsWithId extends ComponentPropsWithoutRef<typeof Row> {
-  id: string;
-}
 interface Props {
-  time: ComponentPropsWithoutRef<typeof Row>["time"];
-  rows: RowPropsWithId[];
+  time: TimeSettings;
+  rows: TimebarEntry[];
 }
 
 const Timebar: FunctionComponent<Props> = (props) => {

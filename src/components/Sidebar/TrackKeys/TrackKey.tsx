@@ -1,15 +1,17 @@
 import { cloneElement } from "react";
+import { Track } from "../../../types";
 
 import TrackKeys from "./TrackKeys";
 import setDefaultProperties, {
   DefaultProperties,
 } from "../../../utils/setDefaultProperties";
 import noop from "../../../utils/noop";
-import { Track } from "./types";
 
+export type ClickTrackHandler = (track: Track) => void;
+export type ToggleOpenHandler = (track: Track) => void;
 interface Props {
-  clickTrackButton?: (track: Track) => void;
-  toggleOpen?: (track: Track) => void;
+  clickTrackButton?: ClickTrackHandler;
+  toggleOpen?: ToggleOpenHandler;
   track: Track;
 }
 

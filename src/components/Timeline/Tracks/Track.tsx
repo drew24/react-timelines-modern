@@ -1,24 +1,18 @@
-import { ComponentPropsWithoutRef, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import Tracks from ".";
-import Element from "./Element";
-
-interface ElementPropsWithId extends ComponentPropsWithoutRef<typeof Element> {
-  id: string;
-}
-
-interface TrackInterface {
-  id: string;
-  elements?: ElementPropsWithId[];
-  isOpen?: boolean;
-  tracks?: TrackInterface[];
-}
+import {
+  TimeSettings,
+  Element as ElementInterface,
+  Track as TrackInterface,
+} from "../../../types";
+import Element, { ClickElementHandler } from "./Element";
 
 interface Props {
-  time: ComponentPropsWithoutRef<typeof Tracks>["time"];
+  time: TimeSettings;
   isOpen?: boolean;
-  elements: ElementPropsWithId[];
+  elements: ElementInterface[];
   tracks: TrackInterface[];
-  clickElement?: ComponentPropsWithoutRef<typeof Element>["clickElement"];
+  clickElement?: ClickElementHandler;
 }
 
 const Track: FunctionComponent<Props> = (props) => {

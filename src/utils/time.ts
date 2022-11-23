@@ -1,14 +1,16 @@
-const MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
+import { TimeSettings } from "../types";
 
-interface CreateSettings {
-  start: Date;
+interface CreateTimeParameters {
   end: Date;
-  zoom: number;
-  viewportWidth?: number;
   minWidth?: number;
+  start: Date;
+  viewportWidth?: number;
+  zoom: number;
 }
 
-function getTimelineWidth(settings: CreateSettings) {
+const MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
+
+function getTimelineWidth(settings: CreateTimeParameters): number {
   const { start, end, zoom, viewportWidth = 0, minWidth = 0 } = settings;
   const duration = end.valueOf() - start.valueOf();
   const days = duration / MILLIS_IN_A_DAY;
@@ -21,7 +23,7 @@ function getTimelineWidth(settings: CreateSettings) {
   }
 }
 
-const create = (settings: CreateSettings) => {
+const create = (settings: CreateTimeParameters): TimeSettings => {
   const { start, end, zoom } = settings;
   const duration = end.valueOf() - start.valueOf();
 

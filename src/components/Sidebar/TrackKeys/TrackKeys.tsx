@@ -1,7 +1,5 @@
-import { ComponentPropsWithoutRef } from "react";
+import { Track } from "../../../types";
 import TrackKey from "./TrackKey";
-
-type Track = ComponentPropsWithoutRef<typeof TrackKey>["track"];
 
 interface Props {
   tracks: Track[];

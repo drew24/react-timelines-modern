@@ -1,43 +1,48 @@
-import React, { ComponentPropsWithoutRef, PureComponent } from "react";
+import React, { PureComponent } from "react";
 
 import Sidebar from "../Sidebar/Sidebar";
 import Timeline from "../Timeline";
 import { addListener, removeListener } from "../../utils/events";
 import raf from "../../utils/raf";
 import getNumericPropertyValue from "../../utils/getNumericPropertyValue";
-import { Track } from "../Sidebar/TrackKeys/types";
+import { TimebarEntry, TimeSettings, Track } from "../../types";
+import { ClickTrackHandler } from "../Sidebar/TrackKeys/TrackKey";
+import { ClickElementHandler } from "../Timeline/Tracks/Element";
 
 const noop = () => {};
+
+interface LayoutChangeHandlerSettings {
+  timelineViewportWidth?: number;
+  sidebarWidth?: number;
+}
+
+type LayoutChangeHandlerCallback = () => void;
+
+export type LayoutChangeHandler = (
+  settings: LayoutChangeHandlerSettings,
+  callback: LayoutChangeHandlerCallback
+) => void;
 
 interface Props {
   enableSticky: boolean;
   isOpen?: boolean;
-  timebar: ComponentPropsWithoutRef<typeof Sidebar>["timebar"] &
-    ComponentPropsWithoutRef<typeof Timeline>["timebar"];
-  time: ComponentPropsWithoutRef<typeof Timeline>["time"];
+  timebar: TimebarEntry[];
+  time: TimeSettings;
   tracks: Track[];
-  now: ComponentPropsWithoutRef<typeof Timeline>["now"];
+  now: Date;
   toggleTrackOpen?: () => void;
   scrollToNow?: boolean;
-  onLayoutChange: (
-    settings: LayoutChangeSettings,
-    callback: () => void
-  ) => void;
+  onLayoutChange: LayoutChangeHandler;
   sidebarWidth?: number;
   timelineViewportWidth?: number;
-  clickElement: ComponentPropsWithoutRef<typeof Timeline>["clickElement"];
-  clickTrackButton?: () => void;
+  clickElement?: ClickElementHandler;
+  clickTrackButton?: ClickTrackHandler;
 }
 
 interface State {
   isSticky: boolean;
   headerHeight: number;
   scrollLeft: number;
-}
-
-interface LayoutChangeSettings {
-  timelineViewportWidth?: number;
-  sidebarWidth?: number;
 }
 
 class Layout extends PureComponent<Props, State> {

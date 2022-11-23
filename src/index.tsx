@@ -1,33 +1,28 @@
-import { Component, ComponentPropsWithoutRef } from "react";
+import { Component, MouseEventHandler } from "react";
 
 import Controls from "./components/Controls";
-import Layout from "./components/Layout";
+import Layout, { LayoutChangeHandler } from "./components/Layout";
+import { ClickTrackHandler } from "./components/Sidebar/TrackKeys/TrackKey";
+import { ClickElementHandler } from "./components/Timeline/Tracks/Element";
+import { ScaleSettings, TimebarEntry, Track } from "./types";
 import createTime from "./utils/time";
 
 const UNKNOWN_WIDTH = -1;
 
 interface Props {
-  clickElement?: ComponentPropsWithoutRef<typeof Layout>["clickElement"];
-  clickTrackButton?: ComponentPropsWithoutRef<
-    typeof Layout
-  >["clickTrackButton"];
-  enableSticky?: ComponentPropsWithoutRef<typeof Layout>["enableSticky"];
-  isOpen?: ComponentPropsWithoutRef<typeof Layout>["isOpen"];
-  now?: ComponentPropsWithoutRef<typeof Layout>["now"];
-  scale: {
-    start: Date;
-    end: Date;
-    zoom: number;
-    zoomMin: number;
-    zoomMax: number;
-  };
-  scrollToNow?: ComponentPropsWithoutRef<typeof Layout>["scrollToNow"];
-  timebar: ComponentPropsWithoutRef<typeof Layout>["timebar"];
-  toggleOpen?: ComponentPropsWithoutRef<typeof Controls>["toggleOpen"];
-  toggleTrackOpen?: ComponentPropsWithoutRef<typeof Layout>["toggleTrackOpen"];
-  tracks: ComponentPropsWithoutRef<typeof Layout>["tracks"];
-  zoomIn?: ComponentPropsWithoutRef<typeof Controls>["zoomIn"];
-  zoomOut?: ComponentPropsWithoutRef<typeof Controls>["zoomOut"];
+  clickElement?: ClickElementHandler;
+  clickTrackButton?: ClickTrackHandler;
+  enableSticky?: boolean;
+  isOpen?: boolean;
+  now: Date;
+  scale: ScaleSettings;
+  scrollToNow?: boolean;
+  timebar: TimebarEntry[];
+  toggleOpen?: () => void;
+  toggleTrackOpen?: () => void;
+  tracks: Track[];
+  zoomIn?: MouseEventHandler<HTMLButtonElement>;
+  zoomOut?: MouseEventHandler<HTMLButtonElement>;
 }
 
 interface State {
@@ -65,9 +60,7 @@ class Timeline extends Component<Props, State> {
     }
   }
 
-  handleLayoutChange: ComponentPropsWithoutRef<
-    typeof Layout
-  >["onLayoutChange"] = (settings, cb) => {
+  handleLayoutChange: LayoutChangeHandler = (settings, cb) => {
     const {
       timelineViewportWidth = UNKNOWN_WIDTH,
       sidebarWidth = UNKNOWN_WIDTH,

@@ -1,7 +1,4 @@
-import { FunctionComponent } from "react";
-import setDefaultProperties, {
-  DefaultProperties,
-} from "../../utils/setDefaultProperties";
+import { CSSProperties, FunctionComponent } from "react";
 
 interface Timebar {
   id: string;
@@ -10,28 +7,36 @@ interface Timebar {
 
 type TimebarSettings = Timebar[];
 
-interface StickySettings {
-  isSticky: boolean;
-  headerHeight: number;
-  sidebarWidth: number;
-}
-
+type StickyProp =
+  | { isSticky: false }
+  | {
+      isSticky: true;
+      headerHeight: Required<CSSProperties>["height"];
+      sidebarWidth: Required<CSSProperties>["width"];
+    };
 interface Props {
   timebar: TimebarSettings;
-  sticky?: StickySettings;
+  sticky?: StickyProp;
 }
 
-const DEFAULT_PROPS: DefaultProperties<Props> = {
-  sticky: {
-    isSticky: false,
-    headerHeight: 0,
-    sidebarWidth: 0,
-  },
-};
+function getStickyProps(stickyProp: StickyProp): {
+  isSticky: boolean;
+  headerHeight: Required<CSSProperties>["height"];
+  sidebarWidth: Required<CSSProperties>["width"];
+} {
+  if (stickyProp.isSticky) {
+    return {
+      isSticky: true,
+      headerHeight: stickyProp.headerHeight,
+      sidebarWidth: stickyProp.sidebarWidth,
+    };
+  }
+  return { isSticky: false, headerHeight: 0, sidebarWidth: 0 };
+}
 
 const Header: FunctionComponent<Props> = (props) => {
-  const { sticky, timebar } = setDefaultProperties(props, DEFAULT_PROPS);
-  const { isSticky, headerHeight, sidebarWidth } = sticky;
+  const { sticky = { isSticky: false }, timebar } = props;
+  const { headerHeight, isSticky, sidebarWidth } = getStickyProps(sticky);
   return (
     <div style={isSticky ? { paddingTop: headerHeight } : {}}>
       <div

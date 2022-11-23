@@ -1,19 +1,21 @@
-import { ComponentPropsWithoutRef, FunctionComponent } from "react";
-import createTime from "../../../utils/time";
+import { CSSProperties, FunctionComponent } from "react";
+import { TimeSettings } from "../../../types";
 
 import BasicElement from "../../Elements/Basic";
 
 interface Props {
-  time?: ReturnType<typeof createTime>;
-  style?: ComponentPropsWithoutRef<typeof BasicElement>["style"];
-  title?: ComponentPropsWithoutRef<typeof BasicElement>["title"];
-  start: ComponentPropsWithoutRef<typeof BasicElement>["start"];
-  end: ComponentPropsWithoutRef<typeof BasicElement>["end"];
-  classes?: ComponentPropsWithoutRef<typeof BasicElement>["classes"];
-  dataSet?: ComponentPropsWithoutRef<typeof BasicElement>["dataSet"];
-  tooltip?: ComponentPropsWithoutRef<typeof BasicElement>["tooltip"];
+  time?: TimeSettings;
+  style?: CSSProperties;
+  title?: string;
+  start: Date;
+  end: Date;
+  classes?: string[];
+  dataSet?: Record<string, string>;
+  tooltip?: string;
   clickElement?: (props: Props) => void;
 }
+
+export type ClickElementHandler = (props: Props) => void;
 
 const Element: FunctionComponent<Props> = (props) => {
   const {

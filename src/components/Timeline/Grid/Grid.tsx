@@ -1,12 +1,8 @@
-import createTime from "../../../utils/time";
+import type { Cell, TimeSettings } from "../../../types";
 
 interface Props {
-  time: ReturnType<typeof createTime>;
-  grid: {
-    id: string;
-    start: Date;
-    end: Date;
-  }[];
+  time: TimeSettings;
+  grid: Cell[];
 }
 
 export default function Grid(props: Props): JSX.Element {

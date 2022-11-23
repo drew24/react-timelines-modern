@@ -1,27 +1,29 @@
-import { ComponentPropsWithoutRef, FunctionComponent } from "react";
-import createTime from "../../../utils/time";
-import Track from "./Track";
+import { FunctionComponent } from "react";
+import { TimeSettings, Track as TrackInterface } from "../../../types";
+import { ClickElementHandler } from "./Element";
+
+import TrackComponent from "./Track";
 
 interface Props {
-  time: ReturnType<typeof createTime>;
-  tracks?: ComponentPropsWithoutRef<typeof Track>["tracks"];
-  clickElement?: ComponentPropsWithoutRef<typeof Track>["clickElement"];
+  clickElement?: ClickElementHandler;
+  time: TimeSettings;
+  tracks?: TrackInterface[];
 }
 const Tracks: FunctionComponent<Props> = (props) => {
-  const { time, tracks, clickElement } = props;
+  const { clickElement, time, tracks } = props;
   return (
     <div className="rt-tracks">
       {tracks &&
         tracks.map((track) => {
-          const { id, elements = [], isOpen, tracks: childTracks = [] } = track;
+          const { elements = [], id, isOpen, tracks: childTracks = [] } = track;
           return (
-            <Track
-              key={id}
-              time={time}
+            <TrackComponent
+              clickElement={clickElement}
               elements={elements}
               isOpen={isOpen}
+              key={id}
+              time={time}
               tracks={childTracks}
-              clickElement={clickElement}
             />
           );
         })}
