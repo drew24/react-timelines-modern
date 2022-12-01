@@ -24,7 +24,7 @@ export default function TrackKey(props: Props): JSX.Element {
     DEFAULT_PROPS
   );
   const { title, tracks, isOpen, hasButton, sideComponent } = track;
-  const isExpandable = isOpen !== undefined;
+  // const isExpandable = isOpen !== undefined;
 
   const buildSideComponent = () => {
     if (sideComponent) {
@@ -47,7 +47,7 @@ export default function TrackKey(props: Props): JSX.Element {
   return (
     <li className="rt-track-key">
       <div className="rt-track-key__entry">
-        {isExpandable && (
+        {/* {isExpandable && (
           <button
             title="Expand track"
             className={`rt-track-key__toggle ${
@@ -60,7 +60,7 @@ export default function TrackKey(props: Props): JSX.Element {
           >
             {isOpen ? "Close" : "Open"}
           </button>
-        )}
+        )} */}
         <span className="rt-track-key__title">{title}</span>
         {buildSideComponent()}
       </div>
