@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 const CloseSvg = () => (
   <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
     <g fillRule="evenodd">
@@ -23,7 +25,7 @@ const OpenSvg = () => (
 );
 
 export interface Props {
-  toggleOpen: () => void;
+  toggleOpen: MouseEventHandler<HTMLButtonElement>;
   isOpen: boolean;
 }
 export default function Toggle(props: Props) {

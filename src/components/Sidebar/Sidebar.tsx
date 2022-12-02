@@ -1,25 +1,34 @@
-import HeaderOld from "./Header";
+import Header from "./Header";
 import Body from "./TrackKeys/Body";
-import { ComponentPropsWithoutRef, FunctionComponent } from "react";
+import { CSSProperties, FunctionComponent } from "react";
+import { Track } from "../../types";
+import { ClickTrackHandler } from "./TrackKeys/TrackKey";
 
 type Timebar = {
   id: string;
   title?: string;
 }[];
 
+type StickyProp =
+  | {
+      isSticky: true;
+      headerHeight: Required<CSSProperties>["height"];
+      sidebarWidth: Required<CSSProperties>["width"];
+    }
+  | { isSticky: false };
 interface Props {
-  clickTrackButton?: () => void;
-  sticky?: ComponentPropsWithoutRef<typeof HeaderOld>["sticky"];
+  clickTrackButton?: ClickTrackHandler;
+  sticky?: StickyProp;
   timebar: Timebar;
   toggleTrackOpen?: () => void;
-  tracks?: ComponentPropsWithoutRef<typeof Body>["tracks"];
+  tracks?: Track[];
 }
 
 const Sidebar: FunctionComponent<Props> = (props) => {
   const { clickTrackButton, sticky, timebar, toggleTrackOpen, tracks } = props;
   return (
     <div className="rt-sidebar">
-      <HeaderOld timebar={timebar} sticky={sticky} />
+      <Header timebar={timebar} sticky={sticky} />
       <Body
         tracks={tracks}
         toggleTrackOpen={toggleTrackOpen}

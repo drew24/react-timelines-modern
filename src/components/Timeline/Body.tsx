@@ -1,13 +1,15 @@
-import { ComponentPropsWithoutRef, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import Tracks from "./Tracks";
 import Grid from "./Grid/Grid";
+import { Cell, TimeSettings, Track } from "../../types";
+import { ClickElementHandler } from "./Tracks/Element";
 
 interface Props {
-  time: ComponentPropsWithoutRef<typeof Tracks>["time"];
-  grid?: ComponentPropsWithoutRef<typeof Grid>["grid"];
-  tracks?: ComponentPropsWithoutRef<typeof Tracks>["tracks"];
-  clickElement?: ComponentPropsWithoutRef<typeof Tracks>["clickElement"];
+  time: TimeSettings;
+  grid?: Cell[];
+  tracks?: Track[];
+  clickElement?: ClickElementHandler;
 }
 
 const Body: FunctionComponent<Props> = (props) => {

@@ -5,16 +5,16 @@ import setDefaultProperties, {
   DefaultProperties,
 } from "../../utils/setDefaultProperties";
 import noop from "../../utils/noop";
-import { ComponentPropsWithoutRef } from "react";
+import { MouseEventHandler } from "react";
 
 interface Props {
-  isOpen?: ComponentPropsWithoutRef<typeof Toggle>["isOpen"];
-  toggleOpen?: ComponentPropsWithoutRef<typeof Toggle>["toggleOpen"];
+  isOpen?: boolean;
+  toggleOpen?: MouseEventHandler<HTMLButtonElement>;
   zoom: number;
-  zoomIn?: ComponentPropsWithoutRef<typeof ZoomIn>["zoomIn"];
-  zoomMax?: ComponentPropsWithoutRef<typeof ZoomIn>["zoomMax"];
-  zoomMin?: ComponentPropsWithoutRef<typeof ZoomOut>["zoomMin"];
-  zoomOut?: ComponentPropsWithoutRef<typeof ZoomOut>["zoomOut"];
+  zoomIn?: MouseEventHandler<HTMLButtonElement>;
+  zoomMax?: number;
+  zoomMin?: number;
+  zoomOut?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const DEFAULT_PROPERTIES: DefaultProperties<Props> = {

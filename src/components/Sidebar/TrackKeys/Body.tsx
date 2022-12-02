@@ -1,14 +1,11 @@
-import { ComponentPropsWithoutRef } from "react";
+import { Track } from "../../../types";
 import setDefaultProperties, {
   DefaultProperties,
 } from "../../../utils/setDefaultProperties";
 import TrackKeys from "./TrackKeys";
 
-type Tracks = ComponentPropsWithoutRef<typeof TrackKeys>["tracks"];
-type Track = Tracks[number];
-
 interface Props {
-  tracks?: Tracks;
+  tracks?: Track[];
   toggleTrackOpen?: (track: Track) => void;
   clickTrackButton?: (track: Track) => void;
 }

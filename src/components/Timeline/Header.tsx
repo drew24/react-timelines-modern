@@ -1,29 +1,21 @@
-import React, {
-  ComponentPropsWithoutRef,
-  MouseEvent,
-  PureComponent,
-  RefObject,
-} from "react";
+import type { MouseEventHandler, RefObject } from "react";
+
+import { createRef, PureComponent } from "react";
+
+import { StickySettings, TimebarEntry, TimeSettings } from "../../types";
 
 import Timebar from "./Timebar/Timebar";
 
 const noop = () => {};
 
 interface Props {
-  time: ComponentPropsWithoutRef<typeof Timebar>["time"];
-  timebar: ComponentPropsWithoutRef<typeof Timebar>["rows"];
-  onMove: (event: MouseEvent) => void;
-  onEnter: () => void;
-  onLeave: () => void;
+  onEnter: MouseEventHandler<HTMLDivElement>;
+  onLeave: MouseEventHandler<HTMLDivElement>;
+  onMove: MouseEventHandler<HTMLDivElement>;
+  sticky: StickySettings;
+  time: TimeSettings;
+  timebar: TimebarEntry[];
   width: string;
-  sticky: {
-    isSticky: boolean;
-    setHeaderHeight: (height: number) => void;
-    handleHeaderScrollY: (scrollY: number) => void;
-    viewportWidth: number;
-    scrollLeft: number;
-    headerHeight?: number;
-  };
 }
 
 class Header extends PureComponent<Props> {
@@ -34,8 +26,8 @@ class Header extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
-    this.scroll = React.createRef();
-    this.timebar = React.createRef();
+    this.scroll = createRef();
+    this.timebar = createRef();
   }
 
   componentDidMount() {

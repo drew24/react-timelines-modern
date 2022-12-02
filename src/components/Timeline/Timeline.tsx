@@ -1,20 +1,23 @@
-import { Component, ComponentPropsWithoutRef, MouseEvent } from "react";
-import createTime from "../../utils/time";
+import { Component, MouseEvent } from "react";
+
+import { StickySettings, TimebarEntry, TimeSettings, Track } from "../../types";
+
+import getMouseX from "../../utils/getMouseX";
+import getGrid from "../../utils/getGrid";
 
 import Header from "./Header";
 import Body from "./Body";
 import NowMarker from "./Marker/NowMarker";
 import PointerMarker from "./Marker/PointerMarker";
-import getMouseX from "../../utils/getMouseX";
-import getGrid from "../../utils/getGrid";
+import { ClickElementHandler } from "./Tracks/Element";
 
 interface Props {
   now?: Date;
-  time: ReturnType<typeof createTime>;
-  timebar: ComponentPropsWithoutRef<typeof Header>["timebar"];
-  tracks: ComponentPropsWithoutRef<typeof Body>["tracks"];
-  sticky: ComponentPropsWithoutRef<typeof Header>["sticky"];
-  clickElement: ComponentPropsWithoutRef<typeof Body>["clickElement"];
+  time: TimeSettings;
+  timebar: TimebarEntry[];
+  tracks: Track[];
+  sticky: StickySettings;
+  clickElement?: ClickElementHandler;
 }
 
 interface State {
@@ -29,8 +32,8 @@ class Timeline extends Component<Props, State> {
 
     this.state = {
       pointerDate: null,
-      pointerVisible: false,
       pointerHighlighted: false,
+      pointerVisible: false,
     };
   }
 

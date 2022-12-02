@@ -1,15 +1,13 @@
-import React, { ComponentPropsWithoutRef } from "react";
+import { CSSProperties } from "react";
 
 import Cell from "./Cell";
 import { FunctionComponent } from "enzyme";
+import { Cell as CellInterface, TimeSettings } from "../../../types";
 
-interface CellPropsWithId extends ComponentPropsWithoutRef<typeof Cell> {
-  id: string;
-}
 interface Props {
-  time: ComponentPropsWithoutRef<typeof Cell>["time"];
-  cells: CellPropsWithId[];
-  style: React.CSSProperties;
+  time: TimeSettings;
+  cells: CellInterface[];
+  style: CSSProperties;
 }
 
 const Row: FunctionComponent<Props> = (props) => {
