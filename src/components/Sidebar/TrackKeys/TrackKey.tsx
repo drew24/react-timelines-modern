@@ -21,25 +21,12 @@ const DEFAULT_PROPS: DefaultProperties<Props> = {
 };
 
 export default function TrackKey(props: Props): JSX.Element {
-  const { track, toggleOpen, clickTrackButton } = setDefaultProperties(
-    props,
-    DEFAULT_PROPS
-  );
-  const { title, tracks, isOpen, hasButton, sideComponent } = track;
+  const { track, toggleOpen } = setDefaultProperties(props, DEFAULT_PROPS);
+  const { title, tracks, isOpen, sideComponent } = track;
 
   const buildSideComponent = () => {
     if (sideComponent) {
       return cloneElement(sideComponent);
-    }
-    if (hasButton && clickTrackButton) {
-      const handleClick = () => clickTrackButton(track);
-      return (
-        <button
-          className="rt-track-key__side-button"
-          onClick={handleClick}
-          type="button"
-        />
-      );
     }
 
     return null;
