@@ -1,16 +1,34 @@
-import React from "react";
-import { shallow } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 
 import TrackKey from "./TrackKey";
 import TrackKeys from ".";
+import { Track } from "../../../types";
+type TrackKeyProps = React.ComponentProps<typeof TrackKey>;
+
+function getSideComponent(node: ShallowWrapper) {
+  return node.find(".side-component");
+}
+
+function getButton(node: ShallowWrapper) {
+  return node.find(".rt-track-key__side-button");
+}
+
+function getToggleButton(node: ShallowWrapper) {
+  return node.find(".rt-track-key__toggle");
+}
 
 describe("<TrackKey />", () => {
   describe("side component", () => {
     const sideComponent = <span className="side-component">Component</span>;
-    const getSideComponent = (node) => node.find(".side-component");
 
     it('renders the side component if "sideComponent" exists', () => {
-      const track = { title: "test", isOpen: true, sideComponent };
+      const track: Track = {
+        elements: [],
+        id: "1",
+        isOpen: true,
+        sideComponent,
+        title: "test",
+      };
       const wrapper = shallow(
         <TrackKey track={track} clickTrackButton={jest.fn()} />
       );
@@ -21,10 +39,14 @@ describe("<TrackKey />", () => {
   });
 
   describe("link button", () => {
-    const getButton = (node) => node.find(".rt-track-key__side-button");
-
     it('renders a button if "hasButton" is true and "clickTrackButton" exists', () => {
-      const track = { title: "test", isOpen: true, hasButton: true };
+      const track: Track = {
+        elements: [],
+        hasButton: true,
+        id: "1",
+        isOpen: true,
+        title: "test",
+      };
       const wrapper = shallow(
         <TrackKey track={track} clickTrackButton={jest.fn()} />
       );
@@ -32,7 +54,12 @@ describe("<TrackKey />", () => {
     });
 
     it('does not render when "hasButton" is false', () => {
-      const track = { title: "test", isOpen: true };
+      const track: Track = {
+        elements: [],
+        id: "1",
+        isOpen: true,
+        title: "test",
+      };
       const wrapper = shallow(
         <TrackKey track={track} clickTrackButton={jest.fn()} />
       );
@@ -41,10 +68,12 @@ describe("<TrackKey />", () => {
 
     it('does not render when "sideComponent" is present', () => {
       const track = {
-        title: "test",
-        isOpen: true,
+        elements: [],
         hasButton: true,
+        id: "1",
+        isOpen: true,
         sideComponent: <span>Component</span>,
+        title: "test",
       };
       const wrapper = shallow(
         <TrackKey track={track} clickTrackButton={jest.fn()} />
@@ -53,13 +82,25 @@ describe("<TrackKey />", () => {
     });
 
     it('does not render when "clickTrackButton" does not exist', () => {
-      const track = { title: "test", isOpen: true, hasButton: true };
+      const track: Track = {
+        elements: [],
+        hasButton: true,
+        id: "1",
+        isOpen: true,
+        title: "test",
+      };
       const wrapper = shallow(<TrackKey track={track} />);
       expect(getButton(wrapper).exists()).toBe(false);
     });
 
     it('calls "clickTrackButton" with the track when clicked', () => {
-      const track = { title: "test", isOpen: true, hasButton: true };
+      const track: Track = {
+        elements: [],
+        hasButton: true,
+        id: "1",
+        isOpen: true,
+        title: "test",
+      };
       const clickTrackButton = jest.fn();
       const wrapper = shallow(
         <TrackKey track={track} clickTrackButton={clickTrackButton} />
@@ -73,11 +114,9 @@ describe("<TrackKey />", () => {
   });
 
   describe("toggle button", () => {
-    const getToggleButton = (node) => node.find(".rt-track-key__toggle");
-
     it('renders when "track.isOpen" is defined', () => {
-      const props = {
-        track: { title: "test", isOpen: true },
+      const props: TrackKeyProps = {
+        track: { title: "test", isOpen: true, elements: [], id: "1" },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
@@ -85,8 +124,8 @@ describe("<TrackKey />", () => {
     });
 
     it('does not render when "track.isOpen" is undefined', () => {
-      const props = {
-        track: { title: "test", isOpen: undefined },
+      const props: TrackKeyProps = {
+        track: { title: "test", isOpen: undefined, elements: [], id: "1" },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
@@ -94,8 +133,8 @@ describe("<TrackKey />", () => {
     });
 
     it('renders with the text "Close" when "track.isOpen" is "true"', () => {
-      const props = {
-        track: { title: "test", isOpen: true },
+      const props: TrackKeyProps = {
+        track: { title: "test", isOpen: true, elements: [], id: "1" },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
@@ -103,8 +142,8 @@ describe("<TrackKey />", () => {
     });
 
     it('renders with the text "Open" when "track.isOpen" is "false"', () => {
-      const props = {
-        track: { title: "test", isOpen: false },
+      const props: TrackKeyProps = {
+        track: { title: "test", isOpen: false, elements: [], id: "1" },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
@@ -112,25 +151,38 @@ describe("<TrackKey />", () => {
     });
 
     it('calls "toggleOpen()" when clicked passing "track" as a single argument', () => {
-      const track = {
-        title: "test",
-        isOpen: false,
-      };
       const toggleOpen = jest.fn();
-      const props = {
-        track,
+      const props: TrackKeyProps = {
         toggleOpen,
+        track: {
+          elements: [],
+          id: "1",
+          isOpen: false,
+          title: "test",
+        },
       };
       const wrapper = shallow(<TrackKey {...props} />);
       getToggleButton(wrapper).simulate("click");
-      expect(toggleOpen).toHaveBeenCalledWith(track);
+      expect(toggleOpen).toHaveBeenCalledWith(props.track);
     });
   });
 
   describe("<TrackKeys />", () => {
     it('renders when "isOpen" is truthy and "tracks" is not empty', () => {
-      const props = {
-        track: { title: "test", tracks: [{}], isOpen: true },
+      const props: TrackKeyProps = {
+        track: {
+          title: "test",
+          elements: [],
+          id: "1",
+          tracks: [
+            {
+              elements: [],
+              id: "2",
+              title: "inner test",
+            },
+          ],
+          isOpen: true,
+        },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
@@ -138,8 +190,20 @@ describe("<TrackKey />", () => {
     });
 
     it('does not render when "isOpen" is falsy', () => {
-      const props = {
-        track: { title: "test", tracks: [{}], isOpen: false },
+      const props: TrackKeyProps = {
+        track: {
+          elements: [],
+          id: "1",
+          title: "test",
+          tracks: [
+            {
+              elements: [],
+              id: "2",
+              title: "inner test",
+            },
+          ],
+          isOpen: false,
+        },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
@@ -147,8 +211,14 @@ describe("<TrackKey />", () => {
     });
 
     it('does not render when "tracks" is falsy', () => {
-      const props = {
-        track: { title: "test", tracks: null, isOpen: true },
+      const props: TrackKeyProps = {
+        track: {
+          elements: [],
+          id: "1",
+          isOpen: true,
+          title: "test",
+          tracks: undefined,
+        },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
@@ -156,8 +226,14 @@ describe("<TrackKey />", () => {
     });
 
     it('does not render when "tracks" is an empty array', () => {
-      const props = {
-        track: { title: "test", tracks: [], isOpen: true },
+      const props: TrackKeyProps = {
+        track: {
+          elements: [],
+          id: "1",
+          isOpen: true,
+          title: "test",
+          tracks: [],
+        },
         toggleOpen: jest.fn(),
       };
       const wrapper = shallow(<TrackKey {...props} />);
