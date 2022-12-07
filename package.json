@@ -1,26 +1,27 @@
 {
-  "name": "react-timelines",
-  "version": "2.7.2",
-  "description": "React Timelines",
+  "name": "react-timelines-modern",
+  "version": "1.0.0-1",
+  "description": "React Timelines: Modern Implementation",
   "main": "lib/index.js",
   "scripts": {
-    "clean": "rimraf lib coverage",
-    "build:js": "babel src/ -d lib/",
-    "watch:js": "babel -w src/ -d lib/",
     "build:css": "node-sass src/scss/style.scss lib/css/style.css",
-    "watch:css": "node-sass -w src/scss/style.scss lib/css/style.css",
-    "watch": "npm run watch:js & npm run watch:css",
+    "build:js": "tsc --project tsconfig.build.json",
     "build": "npm run clean && npm run build:js && npm run build:css",
-    "test": "npm run lint && npm run unit",
+    "clean": "rimraf lib coverage",
+    "coverage": "jest --coverage --collectCoverageFrom='**/*.{js,jsx,ts,tsx}'",
+    "demo:deploy": "./demo/ops/deploy.sh",
+    "lint:js:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "lint:js": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:prettier:fix": "prettier --write \"{e2e,src}/**/*.{js,jsx,ts,tsx}\"",
+    "lint:prettier": "prettier --list-different \"{e2e,src}/**/*.{js,jsx,ts,tsx}\"",
     "lint": "npm run lint:prettier && npm run lint:js",
-    "lint:js": "eslint . --ext .js,.jsx",
-    "lint:js:fix": "eslint . --ext .js,.jsx --fix",
-    "lint:prettier": "prettier --list-different \"{e2e,src}/**/*.{js,jsx}\"",
-    "lint:prettier:fix": "prettier --write \"{e2e,src}/**/*.{js,jsx}\"",
-    "unit": "jest",
-    "coverage": "jest --coverage --collectCoverageFrom='**/*.{js,jsx}'",
     "prepublish": "npm run clean && npm run build",
-    "demo:deploy": "./demo/ops/deploy.sh"
+    "test": "npm run test:build && npm run lint && npm run test:unit",
+    "test:unit": "jest",
+    "test:build": "tsc --project tsconfig.json --noEmit",
+    "watch:css": "node-sass -w src/scss/style.scss lib/css/style.css",
+    "watch:js": "tsc --project tsconfig.build.json --watch",
+    "watch": "npm run watch:js & npm run watch:css"
   },
   "keywords": [
     "timeline",
@@ -40,62 +41,36 @@
   "author": "JSainsburyPLC",
   "license": "MIT",
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "react": "^16.14.0"
   },
   "files": [
     "src",
     "lib"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^25.4.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.23.0",
+    "@types/enzyme": "^3.10.12",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^29.2.2",
+    "@types/react": "^16.14.32",
+    "@types/react-dom": "^18.0.8",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "jest": "^25.4.0",
-    "node-sass": "^4.14.0",
+    "eslint": "^8.25.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.1.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.2.2",
+    "jest-environment-jsdom": "^29.3.1",
+    "node-sass": "^7.0.3",
     "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-addons-test-utils": "^15.4.2",
-    "react-dom": "16.13.1",
-    "rimraf": "^3.0.2"
-  },
-  "peerDependencies": {
-    "react": ">=16",
-    "react-dom": ">=16"
-  },
-  "jest": {
-    "rootDir": "./src",
-    "resetMocks": true,
-    "resetModules": true,
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "<rootDir>/utils/raf.js",
-      "<rootDir>/utils/events.js",
-      "<rootDir>/utils/computedStyle.js",
-      "<rootDir>/propTypes.js"
-    ],
-    "setupFiles": [
-      "../jestSetup.js"
-    ]
-  },
-  "resolutions": {
-    "**/**/minimist": "1.2.5"
+    "react-dom": "^16.14.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
   }
 }
