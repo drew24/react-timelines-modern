@@ -1,4 +1,4 @@
-import { CSSProperties, FunctionComponent } from "react";
+import { CSSProperties, FunctionComponent, ReactNode } from "react";
 import { TimeSettings } from "../../../types";
 
 import BasicElement from "../../Elements/Basic";
@@ -11,7 +11,7 @@ interface Props {
   end: Date;
   classes?: string[];
   dataSet?: Record<string, string>;
-  tooltip?: string;
+  tooltip?: ReactNode;
   clickElement?: (props: Props) => void;
 }
 
