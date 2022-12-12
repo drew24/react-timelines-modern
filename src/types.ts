@@ -19,7 +19,7 @@ export interface Element {
   style: CSSProperties;
   time: TimeSettings;
   title: string;
-  tooltip?: string;
+  tooltip?: ReactNode;
 }
 
 export interface ScaleSettings {

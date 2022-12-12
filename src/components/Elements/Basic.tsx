@@ -1,4 +1,4 @@
-import { CSSProperties, FunctionComponent } from "react";
+import { CSSProperties, FunctionComponent, ReactNode } from "react";
 import { getDayMonth } from "../../utils/formatDate";
 import createClasses from "../../utils/classes";
 
@@ -21,7 +21,7 @@ interface Props {
   start: Date;
   style?: CSSProperties;
   title: string;
-  tooltip?: string;
+  tooltip?: ReactNode;
 }
 
 const Basic: FunctionComponent<Props> = (props) => {
@@ -36,14 +36,7 @@ const Basic: FunctionComponent<Props> = (props) => {
         <span className="rt-element__title">{title}</span>
       </div>
       <div className="rt-element__tooltip">
-        {tooltip ? (
-          // eslint-disable-next-line react/no-danger
-          <div
-            dangerouslySetInnerHTML={{
-              __html: tooltip.split("\n").join("<br>"),
-            }}
-          />
-        ) : (
+        {tooltip || (
           <div>
             <div>{title}</div>
             <div>
