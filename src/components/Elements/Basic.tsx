@@ -22,10 +22,20 @@ interface Props {
   style?: CSSProperties;
   title: string;
   tooltip?: ReactNode;
+  continuing?: ReactNode;
 }
 
 const Basic: FunctionComponent<Props> = (props) => {
-  const { classes = [], dataSet, end, start, style, title, tooltip } = props;
+  const {
+    classes = [],
+    dataSet,
+    end,
+    start,
+    style,
+    title,
+    tooltip,
+    continuing,
+  } = props;
   return (
     <div
       className={createClasses("rt-element", classes)}
@@ -34,6 +44,7 @@ const Basic: FunctionComponent<Props> = (props) => {
     >
       <div className="rt-element__content" aria-hidden="true">
         <span className="rt-element__title">{title}</span>
+        {continuing || <></>}
       </div>
       <div className="rt-element__tooltip">
         {tooltip || (
