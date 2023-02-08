@@ -15,6 +15,7 @@ const buildDataAttributes = (attributes: BuildDataAttributesSettings = {}) => {
 };
 
 interface Props {
+  id?: string;
   classes?: string[];
   dataSet: BuildDataAttributesSettings;
   end: Date;
@@ -22,11 +23,13 @@ interface Props {
   style?: CSSProperties;
   title: string;
   tooltip?: ReactNode;
+  altId?: string;
   continuing?: ReactNode;
 }
 
 const Basic: FunctionComponent<Props> = (props) => {
   const {
+    id,
     classes = [],
     dataSet,
     end,
@@ -34,10 +37,13 @@ const Basic: FunctionComponent<Props> = (props) => {
     style,
     title,
     tooltip,
+    altId,
     continuing,
   } = props;
   return (
     <div
+      id={id}
+      data-altId={altId}
       className={createClasses("rt-element", classes)}
       style={style}
       {...buildDataAttributes(dataSet)}
