@@ -9,7 +9,7 @@ interface BuildDataAttributesSettings {
 const buildDataAttributes = (attributes: BuildDataAttributesSettings = {}) => {
   const value = {};
   Object.keys(attributes).forEach((name) => {
-    value[`data-${name}`] = attributes[name];
+    value[`data-${name.toLowerCase()}`] = attributes[name];
   });
   return value;
 };
@@ -43,7 +43,7 @@ const Basic: FunctionComponent<Props> = (props) => {
   return (
     <div
       id={id}
-      data-altId={altId}
+      data-altid={altId}
       className={createClasses("rt-element", classes)}
       style={style}
       {...buildDataAttributes(dataSet)}
